@@ -6,19 +6,29 @@
 <title>GameZone Lounge</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
 <style>
-/* Base styles */
+/* ===== Brand Variables ===== */
+:root {
+  --brand-green: #00b050;
+  --bg-dark: #0b0b0b;
+  --bg-dark-alt: #111111;
+  --text-light: #f5f5f5;
+  --card-bg: #111111;
+  --input-bg: #1a1a1a;
+}
+
+/* ===== Base Styles ===== */
 body {
-  background-color: #0b0b0b;
-  color: #f5f5f5;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
   font-family: 'Segoe UI', sans-serif;
   scroll-behavior: smooth;
   overflow-x: hidden;
   position: relative;
 }
 
-/* Navigation */
+/* ===== Navigation ===== */
 nav {
-  background-color: #111;
+  background-color: var(--bg-dark-alt);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -29,10 +39,10 @@ nav.sticky {
   box-shadow: 0 4px 15px rgba(0,0,0,0.7);
 }
 nav ul li a:hover {
-  text-shadow: 0 0 10px #00b050;
+  text-shadow: 0 0 10px var(--brand-green);
 }
 
-/* Sections */
+/* ===== Sections ===== */
 section {
   padding: 3rem 0;
   opacity: 0;
@@ -40,14 +50,15 @@ section {
   transition: opacity 1s ease, transform 1s ease;
 }
 
-/* Headings */
-h2, h3 {
-  color: #00b050;
+/* ===== Section Header ===== */
+.section-header h2, .section-header h3 {
+  color: var(--brand-green);
+  margin: 0.2rem 0;
 }
 
-/* Buttons */
+/* ===== Buttons ===== */
 button {
-  background-color: #00b050;
+  background-color: var(--brand-green);
   color: white;
   border: none;
   padding: 0.6rem 1.5rem;
@@ -57,11 +68,11 @@ button {
   border-radius: 5px;
 }
 button:hover {
-  box-shadow: 0 0 15px #00b050, 0 0 30px #00b050;
+  box-shadow: 0 0 15px var(--brand-green), 0 0 30px var(--brand-green);
   transform: translateY(-2px);
 }
 
-/* Images */
+/* ===== Images ===== */
 img {
   border-radius: 10px;
   transition: transform 0.5s ease, filter 0.3s ease;
@@ -70,10 +81,18 @@ img:hover {
   transform: scale(1.05);
   filter: brightness(1.1);
 }
+.hero-img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  transform: translateY(0px);
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+}
 
-/* Feature Cards */
+/* ===== Feature Cards ===== */
 .card {
-  background-color: #111;
+  background-color: var(--card-bg);
   border-radius: 10px;
   padding: 1.5rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -81,10 +100,10 @@ img:hover {
 }
 .card:hover {
   transform: translateY(-5px) scale(1.03);
-  box-shadow: 0 0 20px #00b050;
+  box-shadow: 0 0 20px var(--brand-green);
 }
 
-/* Stats */
+/* ===== Stats ===== */
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -94,65 +113,61 @@ img:hover {
 }
 .stat h3 {
   font-size: 2rem;
-  color: #00b050;
+  color: var(--brand-green);
 }
 
-/* Subscription Form */
+/* ===== Subscription Form ===== */
 form input[type="text"], form input[type="email"] {
-  background-color: #1a1a1a;
-  color: #f5f5f5;
-  border: 1px solid #00b050;
+  background-color: var(--input-bg);
+  color: var(--text-light);
+  border: 1px solid var(--brand-green);
   padding: 0.5rem;
   border-radius: 5px;
   transition: box-shadow 0.3s ease;
 }
 form input:focus {
   outline: none;
-  box-shadow: 0 0 10px #00b050;
+  box-shadow: 0 0 10px var(--brand-green);
 }
 
-/* Fade-in visible class */
+/* ===== Fade-in ===== */
 .visible {
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
 
-/* Back to Top Button */
+/* ===== Back to Top ===== */
 #backToTop {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  background-color: #00b050;
+  background-color: var(--brand-green);
   color: white;
   border: none;
   padding: 0.6rem 1rem;
   border-radius: 50%;
   cursor: pointer;
-  display: none;
   z-index: 100;
-  box-shadow: 0 0 15px #00b050;
-  transition: transform 0.3s ease;
+  box-shadow: 0 0 15px var(--brand-green);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+#backToTop.visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 #backToTop:hover {
   transform: scale(1.1);
 }
 
-/* Hero Parallax */
-.hero-img {
-  width: 100%;
-  max-height: 500px;
-  object-fit: cover;
-  transform: translateY(0px);
-  transition: transform 0.2s ease-out;
-}
-
-/* Soft animated background gradient */
+/* ===== Animated Background Gradient ===== */
 body::before {
   content: '';
   position: fixed;
   top:0; left:0;
   width:100%; height:100%;
-  background: linear-gradient(270deg, #0b0b0b, #111111, #0b0b0b);
+  background: linear-gradient(270deg, var(--bg-dark), var(--bg-dark-alt), var(--bg-dark));
   background-size: 600% 600%;
   z-index: -1;
   animation: gradientBG 15s ease infinite;
@@ -166,7 +181,7 @@ body::before {
 </head>
 <body>
 
-<!-- Navigation -->
+<!-- ===== Navigation ===== -->
 <nav class="container-fluid">
   <ul>
     <li><strong>GameZone Lounge</strong></li>
@@ -178,41 +193,29 @@ body::before {
   </ul>
 </nav>
 
-<!-- Main -->
+<!-- ===== Main ===== -->
 <main class="container">
   <!-- Hero Section -->
   <section class="fade-section">
-    <hgroup>
+    <div class="section-header">
       <h2>Welcome to GameZone Lounge</h2>
       <h3>Your ultimate sports viewing experience</h3>
-    </hgroup>
+    </div>
     <p>Enjoy live matches in high-definition comfort with fellow fans. Our state-of-the-art lounge offers multiple screens, premium sound, and a vibrant atmosphere that makes every goal unforgettable.</p>
     <figure>
-      <img class="hero-img" src="https://images.unsplash.com/photo-1575537302964-96cd47c06b1b?auto=format&fit=crop&w=1200&q=80" alt="Sports bar interior">
-      <figcaption><a href="https://unsplash.com/photos/a-bar-with-tv-screens-and-customers-96cd47c06b1b" target="_blank">Photo by Unsplash</a></figcaption>
+      <img class="hero-img" loading="lazy" src="https://images.unsplash.com/photo-1575537302964-96cd47c06b1b?auto=format&fit=crop&w=1200&q=80" alt="Sports bar interior">
+      <figcaption><a href="https://unsplash.com/photos/a-bar-with-tv-screens-and-customers-96cd47c06b1b" target="_blank" rel="noopener noreferrer">Photo by Unsplash</a></figcaption>
     </figure>
   </section>
 
   <!-- Feature Cards -->
   <section class="fade-section" id="features">
-    <h3>Venue Highlights</h3>
+    <div class="section-header"><h3>Venue Highlights</h3></div>
     <div class="grid">
-      <div class="card">
-        <h4>4K Ultra HD Screens</h4>
-        <p>Every match in stunning clarity.</p>
-      </div>
-      <div class="card">
-        <h4>Private & Open Lounges</h4>
-        <p>VIP booths or open spaces for groups.</p>
-      </div>
-      <div class="card">
-        <h4>Bar & Snacks</h4>
-        <p>Premium drinks & delicious bites.</p>
-      </div>
-      <div class="card">
-        <h4>Friendly Staff</h4>
-        <p>Energetic team to enhance your experience.</p>
-      </div>
+      <div class="card"><h4>4K Ultra HD Screens</h4><p>Every match in stunning clarity.</p></div>
+      <div class="card"><h4>Private & Open Lounges</h4><p>VIP booths or open spaces for groups.</p></div>
+      <div class="card"><h4>Bar & Snacks</h4><p>Premium drinks & delicious bites.</p></div>
+      <div class="card"><h4>Friendly Staff</h4><p>Energetic team to enhance your experience.</p></div>
     </div>
 
     <!-- Animated Stats -->
@@ -226,14 +229,14 @@ body::before {
 
   <!-- Fan Club Subscription -->
   <section class="fade-section" id="fanclub">
-    <hgroup>
+    <div class="section-header">
       <h2>Join Our Fan Club</h2>
       <h3>Get updates on big match screenings & special events</h3>
-    </hgroup>
-    <form class="grid">
-      <input type="text" id="firstname" name="firstname" placeholder="Your Name" aria-label="Your Name" required />
-      <input type="email" id="email" name="email" placeholder="Email Address" aria-label="Email Address" required />
-      <button type="submit" onclick="event.preventDefault(); alert('Thanks for subscribing!')">Subscribe</button>
+    </div>
+    <form class="grid" aria-label="Fan Club Subscription Form">
+      <input type="text" id="firstname" name="firstname" placeholder="Your Name" required />
+      <input type="email" id="email" name="email" placeholder="Email Address" required />
+      <button type="submit">Subscribe</button>
     </form>
   </section>
 </main>
@@ -246,66 +249,79 @@ body::before {
 <!-- Back to Top Button -->
 <button id="backToTop" title="Back to Top">↑</button>
 
+<!-- ===== Scripts ===== -->
 <script>
-// Sticky nav shadow
+// ===== Sticky Navigation & Scroll Effects =====
+const nav = document.querySelector('nav');
+const backToTop = document.getElementById('backToTop');
+const heroImg = document.querySelector('.hero-img');
+
+let ticking = false;
 window.addEventListener('scroll', () => {
-  const nav = document.querySelector('nav');
-  nav.classList.toggle('sticky', window.scrollY > 10);
+  if(!ticking){
+    window.requestAnimationFrame(() => {
+      // Sticky nav shadow
+      nav.classList.toggle('sticky', window.scrollY > 10);
+      // Back-to-top visibility
+      backToTop.classList.toggle('visible', window.scrollY > 300);
+      // Hero parallax
+      heroImg.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+      ticking = false;
+    });
+    ticking = true;
+  }
 });
 
-// Fade-in sections
+// ===== Fade-in Sections =====
 const faders = document.querySelectorAll('.fade-section');
-const appearOptions = { threshold: 0.2 };
-const appearOnScroll = new IntersectionObserver((entries, observer) => {
+const fadeObserver = new IntersectionObserver((entries, obs) => {
   entries.forEach(entry => {
     if(entry.isIntersecting){
       entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
+      obs.unobserve(entry.target);
     }
   });
-}, appearOptions);
-faders.forEach(fader => appearOnScroll.observe(fader));
+}, {threshold: 0.2});
+faders.forEach(fader => fadeObserver.observe(fader));
 
-// Back to Top Button
-const backToTop = document.getElementById('backToTop');
-window.addEventListener('scroll', () => {
-  backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
-});
-backToTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
-
-// Hero image parallax
-const heroImg = document.querySelector('.hero-img');
-window.addEventListener('scroll', () => {
-  let offset = window.scrollY * 0.3;
-  heroImg.style.transform = `translateY(${offset}px)`;
-});
-
-// Animated counters
+// ===== Animated Counters =====
 const counters = document.querySelectorAll('.stat h3');
 counters.forEach(counter => {
-  const updateCount = () => {
-    const target = +counter.getAttribute('data-target');
-    const count = +counter.innerText;
-    const increment = target / 200;
-    if(count < target){
-      counter.innerText = Math.ceil(count + increment);
-      setTimeout(updateCount, 15);
-    } else {
-      counter.innerText = target;
-    }
+  const animateCounter = () => {
+    const target = +counter.dataset.target;
+    let count = 0;
+    const step = () => {
+      count += target / 200;
+      if(count < target){
+        counter.innerText = Math.ceil(count);
+        requestAnimationFrame(step);
+      } else {
+        counter.innerText = target;
+      }
+    };
+    step();
   };
-  // Trigger only when in view
-  const observer = new IntersectionObserver((entries, obs) => {
+  // Observe when in view
+  const counterObserver = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
       if(entry.isIntersecting){
-        updateCount();
+        animateCounter();
         obs.unobserve(entry.target);
       }
     });
   }, {threshold: 0.5});
-  observer.observe(counter);
+  counterObserver.observe(counter);
 });
-</script>
 
+// ===== Subscription Form =====
+document.querySelector('#fanclub form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  alert('Thanks for subscribing!');
+  e.target.reset();
+});
+
+// ===== Back to Top Button =====
+backToTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+</script>
 </body>
 </html>
